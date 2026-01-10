@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PowderKeeper — Inventory for Powder Coating</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orbit" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">PK</div>
+        <span>PowderKeeper</span>
+      </div>
+      <div class="topbar-actions">
+        <div class="status" id="auth-status">Checking sign-in…</div>
+        <button id="signout" class="btn ghost" hidden>Log out</button>
+      </div>
+    </header>
+
+    <div id="logged-out-view">
+      <main class="hero">
+        <div class="hero-copy">
+          <p class="kicker">Powder coating inventory control</p>
+          <h1>Track every ounce, every color, every job.</h1>
+          <p class="subhead">
+            Keep a clean, real-time inventory of powders across racks, carts, and
+            jobs. Know what’s low before the line goes down.
+          </p>
+
+        <div class="cta-row">
+          <button id="google-signin" class="btn primary">
+            <span class="btn-icon">G</span>
+            Sign in with Google
+          </button>
+        </div>
+
+          <div class="trust-row">
+            <div class="pill">Lot tracking</div>
+            <div class="pill">Low-stock alerts</div>
+            <div class="pill">Usage by job</div>
+          </div>
+        </div>
+
+        <section class="panel" aria-label="Inventory snapshot">
+          <div class="panel-header">
+            <div>
+              <h2>Inventory snapshot</h2>
+              <p>Realtime powder overview</p>
+            </div>
+            <div class="badge">Live</div>
+          </div>
+
+          <div class="list">
+            <div class="row">
+              <div>
+                <div class="row-title">Signal Red</div>
+                <div class="row-meta">RAL 3020 · Smooth Gloss</div>
+              </div>
+              <div class="row-qty">18.4 lb</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="row-title">Graphite Black</div>
+                <div class="row-meta">Textured · Outdoor</div>
+              </div>
+              <div class="row-qty warn">4.1 lb</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="row-title">Silver Mist</div>
+                <div class="row-meta">Fine Texture · Indoor</div>
+              </div>
+              <div class="row-qty">9.7 lb</div>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="chip">Last sync: <span id="last-sync">just now</span></div>
+            <div class="chip">Active bins: 26</div>
+          </div>
+        </section>
+      </main>
+
+      <section class="features">
+        <article>
+          <h3>Barcode in, data out</h3>
+          <p>Scan bags and bins to update inventory in seconds.</p>
+        </article>
+        <article>
+          <h3>Shop-floor ready</h3>
+          <p>Readable at 10 feet. Built for tablets and wall screens.</p>
+        </article>
+        <article>
+          <h3>Costs by color</h3>
+          <p>See spend by job and color family to price accurately.</p>
+        </article>
+      </section>
+
+      <footer class="footer">
+        <span>PowderKeeper</span>
+        <span>Built for powder coating teams</span>
+      </footer>
+    </div>
+
+    <div id="logged-in-view" hidden>
+      <main class="dashboard">
+        <div class="dashboard-header boxed">
+          <div>
+            <p class="kicker">After login</p>
+            <h1>Powder flowboard</h1>
+            <p class="subhead">
+              This is where every powder is going next, plus quick access to names,
+              poundage, and brand details.
+            </p>
+          </div>
+          <div class="dashboard-actions">
+            <button class="btn ghost">Add powder</button>
+            <button class="btn primary">Create pickup</button>
+          </div>
+        </div>
+
+        <section class="inventory-panel" aria-label="Powder inventory">
+          <div class="inventory-header">
+            <div>
+              <h2>Powder inventory</h2>
+              <p>Search by name, pounds, or brand.</p>
+            </div>
+            <label class="search" for="powder-search">
+              <span class="search-label">Search</span>
+              <input
+                id="powder-search"
+                type="search"
+                placeholder="Try: Silver, 25 lb, Sherwin"
+                autocomplete="off"
+              />
+            </label>
+          </div>
+
+          <div class="inventory-pills">
+            <div id="powder-rows" class="inventory-body"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer footer-logged-in">
+        <span>PowderKeeper Ops</span>
+        <span>Realtime destinations · Inventory by brand</span>
+      </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
