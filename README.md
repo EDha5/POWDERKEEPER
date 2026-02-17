@@ -1,131 +1,124 @@
-# POWDERKEEPER
-# 🧴🎨 PowderKeeper
+# PowderKeeper
 
-**PowderKeeper** is a simple, fast inventory system for **powder coat / paint containers** — built for the real world where the only thing that matters is:
-
-- *What color is this?*
-- *How much is left?*
-- *Which container is it?*
-
-You enter a powder once (color + weight), **PowderKeeper assigns a container ID**, and you slap that number on the jug.  
-From there, updating inventory is dead simple: **enter the container ID + new weight** and you’re done.
+PowderKeeper is a lightweight inventory system for powder coat (and paint) containers. It assigns a unique container ID to each entry, tracks weight over time, and makes it easy to find materials by color, brand, or container number.
 
 ---
 
-## ✨ What it does
+## Overview
 
-✅ **Create a container record**
-- Enter **color** and **weight**
-- PowderKeeper generates a **unique container number**
-- Put that number on the container (Sharpie/label maker/QR… you choose)
+Shops don’t lose time because they lack “inventory software”—they lose time because the workflow is slow:
 
-✅ **Update inventory in seconds**
-- Grab a container, use some powder
-- Type in the **container number**
-- Enter the **new weight**
-- PowderKeeper stores it (and keeps the history)
+- Containers are inconsistently labeled
+- Similar colors get mixed up
+- Remaining quantity is unknown until it’s too late
+- Updates are annoying, so they don’t happen
 
-✅ **Search your stash instantly**
-Search by:
-- **Color name**
+PowderKeeper solves this with a simple, repeatable process:
+
+1. **Create a container record** (color + initial weight)  
+2. **Get a unique container ID**  
+3. **Label the container with that ID**  
+4. **Update weight by ID whenever it’s used**  
+5. **Search inventory instantly** by name/brand/ID
+
+---
+
+## Key Features
+
+- **Container ID assignment**  
+  Generates a unique identifier for each container and uses it as the primary key for updates.
+
+- **Weight tracking**  
+  Store and update container weights with a consistent, shop-friendly workflow.
+
+- **Fast updates**  
+  After material is used, update inventory by entering:
+  - container ID  
+  - new weight
+
+- **Searchable inventory**  
+  Search records by:
+  - color/name  
+  - brand  
+  - container ID / number on the container
+
+- **Inventory history (optional/if enabled)**  
+  Preserve previous weights to understand usage trends and prevent surprises.
+
+---
+
+## Standard Workflow
+
+### 1) Add a container
+Record a new powder/paint container by entering its identifying information and starting weight. PowderKeeper returns a unique container ID to label the physical container.
+
+**Inputs**
+- Color / Name
+- Brand
+- Starting weight
+
+**Output**
+- Container ID (apply to the container label)
+
+### 2) Update after use
+When the container is used, record the new weight by referencing the container ID.
+
+**Inputs**
+- Container ID
+- New weight
+
+**Result**
+- Inventory updated and stored in the database
+
+### 3) Find inventory
+Use search to locate containers quickly by name, brand, or container ID—without opening lids or guessing.
+
+---
+
+## Data Model (Conceptual)
+
+A typical record includes:
+
+- **Container ID** (generated)
+- **Color / Name**
 - **Brand**
-- **Container number / ID**
-- (Optional: part numbers, codes, internal naming conventions)
-
-✅ **Know what you actually have**
-Stop guessing. Stop opening lids. Stop “I think that’s the white… maybe.”
+- **Current weight**
+- **Last updated**
+- *(optional)* change history / notes
 
 ---
 
-## 🧠 The workflow (how people actually use it)
+## Use Cases
 
-### 1) Add a new powder container
-1. Put the container on the scale
-2. Enter its:
-   - Color name (e.g. `Cardinal Super Durable Satin Black`)
-   - Brand (e.g. `Cardinal`)
-   - Starting weight (e.g. `18.4 lb`)
-3. PowderKeeper gives you an ID like: `PK-0127`
-4. Label the container: **PK-0127**
-
-### 2) Update after using it
-1. Put the container back on the scale
-2. Enter:
-   - Container ID: `PK-0127`
-   - New weight: `16.9 lb`
-3. Saved. Inventory updated. History preserved.
-
-### 3) Find it later
-- Search `black`
-- Search `Cardinal`
-- Search `PK-0127`
-- Search your internal code like `C109-BK###` (if you store it)
+- Track remaining quantities to avoid running out mid-job
+- Standardize labeling across shelves, racks, and job sites
+- Quickly locate the correct material when multiple similar colors exist
+- Maintain accurate counts without adding shop-floor friction
 
 ---
 
-## 🔎 Example searches
+## Roadmap
 
-- `brand:Cardinal`
-- `color:"Satin Black"`
-- `id:PK-0127`
-- `name:RAL 9005`
+Potential enhancements:
 
-(Exact search syntax depends on your UI/CLI — but the concept is the same: **find anything fast**.)
-
----
-
-## Why PowderKeeper exists
-
-If you do powder coating (or any paint inventory), you’ve felt this pain:
-
-- Containers with “sort of” labels
-- Multiple blacks that aren’t the same black
-- Powder mysteriously running out mid-job
-- “We totally have enough” (narrator: *they did not*)
-
-PowderKeeper turns your shelves into a **traceable system** — without being a bloated ERP.
+- QR code labels for scan-to-update
+- Low-inventory thresholds and notifications
+- Multi-location support (rack/bin mapping)
+- CSV import/export
+- Notes per update (job/PO reference)
 
 ---
 
-## 🧰 Features
+## Contributing
 
-- **Container ID system** (print it, write it, QR it — your call)
-- **Weight tracking** per container
-- **Update-by-ID** workflow (fast shop-floor usage)
-- **Searchable database**
-- **Inventory history** (see weight changes over time)
+Contributions are welcome. If you have ideas that improve speed, reliability, or shop usability:
 
----
-
-## 🗺️ Roadmap (ideas)
-
-- QR code labels for instant scan + update
-- “Low stock” alerts per powder
-- Multiple locations (Rack A / Rack B / Trailer / Jobsite)
-- Import/export (CSV)
-- Mix tracking (e.g., blended powders / custom batches)
-- Job usage notes (“Used on PO 29093 rails”)
+1. Open an issue describing the workflow improvement
+2. Submit a PR with a focused change
+3. Include before/after behavior and any assumptions
 
 ---
 
-## 🤝 Contributing
+## License
 
-If you use PowderKeeper in a shop and have ideas that make the workflow faster, simpler, or more bulletproof:
-- Open an issue
-- Submit a PR
-- Or just write up how you’d want it to work
-
-The goal is **speed + clarity**, not complexity.
-
----
-
-## 📄 License
-
-Pick your license (MIT is common for projects like this).  
-If you haven’t chosen one yet, add a `LICENSE` file so people know how they can use it.
-
----
-
-## ⭐ If this saves you from “mystery powder” problems
-
-Give it a star — or better yet, send a photo of your labeled containers. 😄
+Add a `LICENSE` file to define usage terms (MIT is a common default).
